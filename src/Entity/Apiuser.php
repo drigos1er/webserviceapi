@@ -29,20 +29,20 @@ class Apiuser implements UserInterface
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @groups({"user_customers"})
+     * @groups({"user_customers","products_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
-     * @groups({"user_administrators"})
+     * @groups({"user_administrators","products_read"})
      * @groups({"user_customers"})
      */
     private $username;
 
     /**
      * @ORM\Column(type="json")
-     * @groups({"user_administrators"})
+     * @groups({"user_administrators","products_read"})
      * @groups({"user_customers"})
      */
     private $roles = [];
@@ -55,7 +55,7 @@ class Apiuser implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @groups({"user_administrators"})
+     * @groups({"user_administrators","products_read"})
      * @groups({"user_customers"})
      */
     private $email;
@@ -63,13 +63,13 @@ class Apiuser implements UserInterface
     /**
      * @ORM\Column(type="datetime")
      * @groups({"user_administrators"})
-     * @groups({"user_customers"})
+     * @groups({"user_customers","products_read"})
      */
     private $creatdat;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
-     * @groups({"user_administrators"})
+     * @groups({"user_administrators","products_read"})
      * @groups({"user_customers"})
      */
     private $upddat;

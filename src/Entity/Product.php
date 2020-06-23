@@ -18,11 +18,19 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
  *  normalizationContext={
  *     "groups"={"products_read"}
  *     },
+ *   subresourceOperations={
+ *  "api_administrators_products_get_subresource"={
+ *     "normalization_context"={"groups"={"products_subresource"}}
+ *   }
+ *     },
+ *
+ *
  *  attributes={
  *     "pagination_enabled"=true,
  *     "order":{"name":"ASC"}
  *     },
- *  collectionOperations={"GET"={"/produits"},"POST"}
+ *  collectionOperations={"GET"={"path"="/produits"}},
+ *  itemOperations={"GET"={"path"="/produits/{id}"}}
  * )
  * @ApiFilter(
  *  SearchFilter::class, properties={"name"}
@@ -38,68 +46,68 @@ class Product
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @groups({"products_read"})
+     * @groups({"products_read","products_subresource"})
      *
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=100)
-     * @groups({"products_read"})
+     * @groups({"products_read","user_administrators","products_subresource"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=100)
-     * @groups({"products_read"})
+     * @groups({"products_read","user_administrators","products_subresource"})
      */
     private $series;
 
     /**
      * @ORM\Column(type="string", length=100)
-     * @groups({"products_read"})
+     * @groups({"products_read","user_administrators","products_subresource"})
      */
     private $numseries;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @groups({"products_read"})
+     * @groups({"products_read","user_administrators","products_subresource"})
      */
     private $description;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @groups({"products_read"})
+     * @groups({"products_read","user_administrators","products_subresource"})
      */
     private $pictureurl;
 
     /**
      * @ORM\Column(type="integer")
-     * @groups({"products_read"})
+     * @groups({"products_read","user_administrators","products_subresource"})
      */
     private $quantity;
 
     /**
      * @ORM\Column(type="float")
-     * @groups({"products_read"})
+     * @groups({"products_read","user_administrators","products_subresource"})
      */
     private $price;
 
     /**
      * @ORM\Column(type="datetime")
-     * @groups({"products_read"})
+     * @groups({"products_read","user_administrators","products_subresource"})
      */
     private $creatdat;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
-     * @groups({"products_read"})
+     * @groups({"products_read","user_administrators","products_subresource"})
      */
     private $upddat;
 
     /**
      * @ORM\ManyToMany(targetEntity=Shopper::class, inversedBy="products")
-     * @groups({"products_read"})
+     * @groups({"products_read","products_subresource"})
      */
     private $shoppers;
 

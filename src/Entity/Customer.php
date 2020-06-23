@@ -6,9 +6,19 @@ use App\Repository\CustomerRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=CustomerRepository::class)
+ * @ApiResource(
+ *  normalizationContext={
+ *     "groups"={"user_customers"}
+ *     },
+ *  attributes={
+ *     "pagination_enabled"=true
+ *     }
+ * )
  */
 class Customer extends Apiuser
 {
@@ -16,11 +26,13 @@ class Customer extends Apiuser
 
     /**
      * @ORM\Column(type="integer")
+     * @groups({"user_customers"})
      */
     private $contact;
 
     /**
      * @ORM\OneToMany(targetEntity=Shopper::class, mappedBy="customers")
+     * @groups({"user_customers"})
      */
     private $shoppers;
 

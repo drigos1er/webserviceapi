@@ -5,13 +5,22 @@ namespace App\Entity;
 use App\Repository\ApiuserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=ApiuserRepository::class)
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="type", type="string")
  * @ORM\DiscriminatorMap({"apiuser" = "Apiuser","customer" = "Customer", "administrator" = "Administrator"})
- *
+ * @ApiResource(
+ *  normalizationContext={
+ *     "groups"={"user_read"}
+ *     },
+ *  attributes={
+ *     "pagination_enabled"=true
+ *     }
+ * )
  */
 
 class Apiuser implements UserInterface
@@ -20,16 +29,21 @@ class Apiuser implements UserInterface
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @groups({"user_customers"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @groups({"user_administrators"})
+     * @groups({"user_customers"})
      */
     private $username;
 
     /**
      * @ORM\Column(type="json")
+     * @groups({"user_administrators"})
+     * @groups({"user_customers"})
      */
     private $roles = [];
 
@@ -41,16 +55,22 @@ class Apiuser implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @groups({"user_administrators"})
+     * @groups({"user_customers"})
      */
     private $email;
 
     /**
      * @ORM\Column(type="datetime")
+     * @groups({"user_administrators"})
+     * @groups({"user_customers"})
      */
     private $creatdat;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @groups({"user_administrators"})
+     * @groups({"user_customers"})
      */
     private $upddat;
 

@@ -2,15 +2,35 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use App\Repository\ProductRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
- * @ApiResource
+ * @ApiResource(
+ *  normalizationContext={
+ *     "groups"={"products_read"}
+ *     },
+ *  attributes={
+ *     "pagination_enabled"=true,
+ *     "order":{"name":"ASC"}
+ *     },
+ *  collectionOperations={"GET"={"/produits"},"POST"}
+ * )
+ * @ApiFilter(
+ *  SearchFilter::class, properties={"name"}
+ * )
+ *
+ * @ApiFilter(
+ *  OrderFilter::class
+ * )
  */
 class Product
 {
@@ -18,62 +38,75 @@ class Product
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @groups({"products_read"})
+     *
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @groups({"products_read"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @groups({"products_read"})
      */
     private $series;
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @groups({"products_read"})
      */
     private $numseries;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @groups({"products_read"})
      */
     private $description;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @groups({"products_read"})
      */
     private $pictureurl;
 
     /**
      * @ORM\Column(type="integer")
+     * @groups({"products_read"})
      */
     private $quantity;
 
     /**
      * @ORM\Column(type="float")
+     * @groups({"products_read"})
      */
     private $price;
 
     /**
      * @ORM\Column(type="datetime")
+     * @groups({"products_read"})
      */
     private $creatdat;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @groups({"products_read"})
      */
     private $upddat;
 
     /**
      * @ORM\ManyToMany(targetEntity=Shopper::class, inversedBy="products")
+     * @groups({"products_read"})
      */
     private $shoppers;
 
     /**
      * @ORM\ManyToOne(targetEntity=Administrator::class, inversedBy="products")
      * @ORM\JoinColumn(nullable=false)
+     * @groups({"products_read"})
      */
     private $administrators;
 

@@ -6,9 +6,19 @@ use App\Repository\AdministratorRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=AdministratorRepository::class)
+ * @ApiResource(
+ *  normalizationContext={
+ *     "groups"={"user_administrators"}
+ *     },
+ *  attributes={
+ *     "pagination_enabled"=true
+ *     }
+ * )
  */
 class Administrator extends Apiuser
 {
@@ -16,6 +26,8 @@ class Administrator extends Apiuser
 
     /**
      * @ORM\OneToMany(targetEntity=Product::class, mappedBy="administrators")
+     * @groups({"user_administrators"})
+     *
      */
     private $products;
 

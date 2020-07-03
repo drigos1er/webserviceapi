@@ -3,10 +3,12 @@ namespace App\Events;
 use ApiPlatform\Core\EventListener\EventPriorities;
 use App\Entity\Administrator;
 use App\Entity\Apiuser;
+use App\Entity\Shopper;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\User;
 use Symfony\Component\HttpKernel\kernelEvents;
 
@@ -15,18 +17,18 @@ use Symfony\Component\HttpKernel\kernelEvents;
  * Class PasswordEncoder
  * @package App\Events
  */
-class PasswordEncoder implements EventSubscriberInterface
+class customerSubscriber implements EventSubscriberInterface
 {
 
-    private $encoder;
+    private $security;
 
     /**
      * PasswordEncoder constructor.
-     * @param $encoder
+     * @param $security
      */
-    public function __construct(UserPasswordEncoderInterface $encoder)
+    public function __construct(Security $security)
     {
-        $this->encoder = $encoder;
+        $this->security = $security;
     }
 
 
@@ -35,18 +37,20 @@ class PasswordEncoder implements EventSubscriberInterface
         // TODO: Implement getSubscribedEvents() method.
 
         return [
-            kernelEvents::VIEW=>['encodePassword',EventPriorities::PRE_WRITE]
+            kernelEvents::VIEW=>['setUserForCustomer',EventPriorities::PRE_VALIDATE]
         ];
     }
 
-    public function encodePassword(GetResponseForControllerResultEvent $event){
+    public function setUserForCustomer(GetResponseForControllerResultEvent $event){
         $result=$event->getControllerResult();
         $method=$event->getRequest()->getMethod();   // Renvoi la method GET, POST, PUT
 
-        if($result instanceof Administrator && $method=='POST'){
+        if($result instanceof Shopper && $method=='POST'){
 
-            $hash=$this->encoder->encodePassword($result,$result->getPassword());
-            $result->setPassword($hash);
+            // recuperer l'utilisateur connecté
+            $user=$this->security->getUser();
+
+            $result->setCustomers($user);
 
         }
 

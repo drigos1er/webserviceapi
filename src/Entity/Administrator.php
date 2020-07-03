@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 
 /**
  * @ORM\Entity(repositoryClass=AdministratorRepository::class)
@@ -17,7 +18,12 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     },
  *  attributes={
  *     "pagination_enabled"=true
- *     }
+ *     },
+ *  collectionOperations={"GET"={"path"="/admin"},"POST"={"path"="/admin"}},
+ *  subresourceOperations={
+         "products_get_subresource"={"path"="/admin/{id}/produits"}
+ *     },
+ *  itemOperations={"GET"={"path"="/admin/{id}"},"DELETE"={"path"="/admin/{id}"},"PUT"={"path"="/admin/{id}"}}
  * )
  */
 class Administrator extends Apiuser
@@ -27,7 +33,7 @@ class Administrator extends Apiuser
     /**
      * @ORM\OneToMany(targetEntity=Product::class, mappedBy="administrators")
      * @groups({"user_administrators"})
-     *
+     * @ApiSubresource
      */
     private $products;
 

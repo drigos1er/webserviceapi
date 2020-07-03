@@ -8,6 +8,8 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 
 /**
  * @ORM\Entity(repositoryClass=ShopperRepository::class)
@@ -15,9 +17,12 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *  normalizationContext={
  *     "groups"={"shopper_read"}
  *     },
+ *  denormalizationContext={"disable_type_enforcement"=true},
  *  attributes={
  *     "pagination_enabled"=true
- *     }
+ *     },
+ *  collectionOperations={"GET"={"path"="/utilisateurs"},"POST"={"path"="/utilisateurs"}},
+ *  itemOperations={"GET"={"path"="/utilisateurs/{id}"},"DELETE"={"path"="/utilisateurs/{id}"},"PUT"={"path"="/utilisateurs/{id}"}}
  * )
  */
 class Shopper
@@ -33,30 +38,42 @@ class Shopper
     /**
      * @ORM\Column(type="string", length=255)
      * @groups({"shopper_read"})
+     * @Assert\NotBlank(message="le nom est obligatoire")
+     * @Assert\Length(min="3", minMessage="le nom doit être constitué de  3 caractères minimum")
      */
     private $firstname;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @groups({"shopper_read"})
+     * @Assert\NotBlank(message="le prénoms est obligatoire")
+     * @Assert\Length(min="3", minMessage="le prénomx doit être constitué de  3 caractères minimum")
      */
     private $lastname;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @groups({"shopper_read"})
+     * @Assert\NotBlank(message="l'email est obligatoire")
+     * @Assert\Email(message="Format email invalide")
      */
     private $email;
 
     /**
      * @ORM\Column(type="integer")
      * @groups({"shopper_read"})
+     * @Assert\NotBlank(message="le contact est obligatoire")
+     * @Assert\Type(
+     *     type="integer",
+     *     message="le contact doit être un nombre"
+     * )
      */
     private $contact;
 
     /**
      * @ORM\Column(type="datetime")
      * @groups({"shopper_read"})
+     * @Assert\NotBlank(message="la date  est obligatoire")
      */
     private $creatdat;
 
@@ -76,6 +93,8 @@ class Shopper
      * @ORM\ManyToOne(targetEntity=Customer::class, inversedBy="shoppers")
      * @ORM\JoinColumn(nullable=false)
      * @groups({"shopper_read"})
+     * @Assert\NotBlank(message="le client  est obligatoire")
+     * @ApiSubresource
      */
     private $customers;
 

@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 
 /**
  * @ORM\Entity(repositoryClass=CustomerRepository::class)
@@ -33,6 +34,7 @@ class Customer extends Apiuser
     /**
      * @ORM\OneToMany(targetEntity=Shopper::class, mappedBy="customers")
      * @groups({"user_customers"})
+     * @ApiSubresource
      */
     private $shoppers;
 

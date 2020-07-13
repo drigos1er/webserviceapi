@@ -1,4 +1,13 @@
 api_platform:
+    # The title of the API.
+    title: 'API WEB SERVICE OCR'
+
+    # The description of the API.
+    description: 'API WEB SERVICE BileMo'
+
+    # The version of the API.
+    version: '1.0.0'
+
     mapping:
         paths: ['%kernel.project_dir%/src/Entity']
     patch_formats:
@@ -9,3 +18,4 @@ api_platform:
         pagination:
             enabled: false # desactivation de la pagination
             items_per_page: 10 # nombre d'éléments par défaut
+

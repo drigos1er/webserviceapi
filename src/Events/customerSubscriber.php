@@ -34,7 +34,6 @@ class customerSubscriber implements EventSubscriberInterface
 
     public static function getSubscribedEvents()
     {
-        // TODO: Implement getSubscribedEvents() method.
 
         return [
             kernelEvents::VIEW=>['setUserForCustomer',EventPriorities::PRE_VALIDATE]
@@ -51,6 +50,9 @@ class customerSubscriber implements EventSubscriberInterface
             $user=$this->security->getUser();
 
             $result->setCustomers($user);
+            $result->setUpddat( new \DateTime());
+            $result->setCreatdat( new \DateTime());
+
 
         }
 

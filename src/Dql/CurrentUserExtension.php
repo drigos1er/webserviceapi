@@ -7,6 +7,7 @@ namespace App\Dql;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Extension\QueryCollectionExtensionInterface;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Extension\QueryItemExtensionInterface;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Util\QueryNameGeneratorInterface;
+use App\Entity\Administrator;
 use App\Entity\Customer;
 use App\Entity\Shopper;
 use Doctrine\ORM\QueryBuilder;

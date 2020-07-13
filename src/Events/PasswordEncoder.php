@@ -3,6 +3,7 @@ namespace App\Events;
 use ApiPlatform\Core\EventListener\EventPriorities;
 use App\Entity\Administrator;
 use App\Entity\Apiuser;
+use App\Entity\Customer;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
@@ -32,7 +33,7 @@ class PasswordEncoder implements EventSubscriberInterface
 
     public static function getSubscribedEvents()
     {
-        // TODO: Implement getSubscribedEvents() method.
+
 
         return [
             kernelEvents::VIEW=>['encodePassword',EventPriorities::PRE_WRITE]
@@ -43,9 +44,11 @@ class PasswordEncoder implements EventSubscriberInterface
         $result=$event->getControllerResult();
         $method=$event->getRequest()->getMethod();   // Renvoi la method GET, POST, PUT
 
-        if($result instanceof Administrator && $method=='POST'){
+        if(($result instanceof Administrator && $method=='POST') || ($result instanceof Customer && $method=='POST') ){
 
             $hash=$this->encoder->encodePassword($result,$result->getPassword());
+            $result->setUpddat( new \DateTime());
+            $result->setCreatdat( new \DateTime());
             $result->setPassword($hash);
 
         }

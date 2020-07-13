@@ -18,7 +18,10 @@ use ApiPlatform\Core\Annotation\ApiSubresource;
  *     },
  *  attributes={
  *     "pagination_enabled"=true
- *     }
+ *     },
+ *  collectionOperations={"GET"={"path"="/clients"},"POST"={"path"="/clients"}},
+ *  itemOperations={"GET"={"path"="/clients/{id}"},"DELETE"={"path"="/clients/{id}"},"PUT"={"path"="/clients/{id}"}}
+ *
  * )
  */
 class Customer extends Apiuser

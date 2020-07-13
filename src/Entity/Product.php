@@ -29,7 +29,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
  *     "pagination_enabled"=true,
  *     "order":{"name":"ASC"}
  *     },
- *  collectionOperations={"GET"={"path"="/produits"}},
+ *  collectionOperations={"GET"={"path"="/produits"},"POST"={"path"="/produits"}},
  *  itemOperations={"GET"={"path"="/produits/{id}"}}
  * )
  * @ApiFilter(
@@ -107,14 +107,14 @@ class Product
 
     /**
      * @ORM\ManyToMany(targetEntity=Shopper::class, inversedBy="products")
-     * @groups({"products_read","products_subresource"})
+     *
      */
     private $shoppers;
 
     /**
      * @ORM\ManyToOne(targetEntity=Administrator::class, inversedBy="products")
      * @ORM\JoinColumn(nullable=false)
-     * @groups({"products_read"})
+     *
      */
     private $administrators;
 

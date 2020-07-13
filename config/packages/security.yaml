@@ -60,5 +60,6 @@ security:
         - { path: ^/api/administrators, roles: IS_AUTHENTICATED_FULLY, methods: [GET,PUT, DELETE]  }
         - { path: ^/api/products, roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/api/utilisateurs, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api/clients, roles: IS_AUTHENTICATED_FULLY }
 
         # - { path: ^/profile, roles: ROLE_USER }

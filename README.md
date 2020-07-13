@@ -14,8 +14,6 @@ Le projet developpé sous symfony respecte l'architecture d'unn projet Symfony 4
 
 5) Un dossier vendor contenant les différentes bibliothèques externes (twig…) utilisés dans notre projet.
 
-5) Un dossier db contenant le script de création de la base de données
-
 6) Un .env contenant les paramètres de connexion à la base de données
 
 7) Installer PHP 7.3, MySQL et le serveur Apache sur votre machine et exécuter ces différents services

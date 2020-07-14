@@ -1,4 +1,6 @@
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/dded0beccb864bba843b2337d893bcf5)](https://app.codacy.com/manual/drigos1er/webserviceapi?utm_source=github.com&utm_medium=referral&utm_content=drigos1er/webserviceapi&utm_campaign=Badge_Grade_Dashboard)
+
 
 Cette application est une plateforme fournissant un via une API .
 

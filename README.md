@@ -23,3 +23,6 @@ Créer la base de donnée apiwebservice_db à partir du fichier de création de 
 Ouvrir le fichier .env dans la section DATABASE_URL entrer les configuration d’accès à votre base de données.
 
 Vous pouvez accéder au blog en à partir de l’adresse : [l’adresse de votre serveur ou localhost]/[webserviceapi]
+8) Lancer l'installation et la mise à jour des composants grâce à composer
+9) Lancer le serveur PHP integré : php -S 127.0.0.1:8000 -t public
+10) Installer et et excuter l'application "postman" pour effectuer les tests
